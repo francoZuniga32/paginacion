@@ -46,7 +46,7 @@ echo "<nav class=\"Page navigation example d-flex justify-content-center\" >
                 }
                 echo "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" role=\"button\">...</a></li>";
             }else{
-                if ($pagina >= $paginas - 3) {
+                if ($pagina > $paginas - 3) {
                     echo "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" role=\"button\">...</a></li>";
 
                     for($i = $paginas - 2 ; $i<= $paginas; $i++){
