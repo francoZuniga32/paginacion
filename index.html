@@ -19,18 +19,48 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<body onload="buscar(1,10);">
-    <div id="respuesta">
+<body onload="cargar(1);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">paginacion y filtro</li>
+        </ol>
+      </nav>
+    <form>
+        <div class="form-group">
+            <div class="col-sm-3">
+                <label for="serch">Busqueda</label>
+                <input type="text" class="form-control" id="serch">
+                <button type="button" class="btn btn-primary" onclick="cargarBusqueda()">cargar</button>
+            </div>
+        </div>
+      </form>
+    <div id="respuesta" class="container">
         
     </div>
-
-    <button onclick="buscar(2,10)">2</button>
     <script>
-        function buscar(inicio, cantidad) {
+        function cargar(inicio) {
+            $("#respuesta").empty();
+            var parametros = {
+                    "pagina" : inicio
+            };
+            $.ajax({
+                    data:  parametros, //datos que se envian a traves de ajax
+                    url:   'muestra.php', //archivo que recibe la peticion
+                    type:  'post', //método de envio
+                    beforeSend: function () {
+                            $("#respuesta").html("Procesando, espere por favor...");
+                    },
+                    success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                            $("#respuesta").html(response);
+                    }
+            });
+        };
+
+        function cargarBusqueda(inicio) {
             $("#respuesta").empty();
             var parametros = {
                     "pagina" : inicio,
-                    "cantidad" : cantidad
+                    "buscar" : $("#serch").val
             };
             $.ajax({
                     data:  parametros, //datos que se envian a traves de ajax
