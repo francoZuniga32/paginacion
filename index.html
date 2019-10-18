@@ -30,7 +30,7 @@
             <div class="col-sm-3">
                 <label for="serch">Busqueda</label>
                 <input type="text" class="form-control" id="serch">
-                <button type="button" class="btn btn-primary" onclick="cargarBusqueda()">cargar</button>
+                <button type="button" class="btn btn-primary" id="enviar">cargar</button>
             </div>
         </div>
       </form>
@@ -38,17 +38,19 @@
         
     </div>
     <script>
-        function cargar(inicio) {
+        function cargar(inicio){
             $("#respuesta").empty();
+            $("#enviar").attr("onclick", "cargarBusqueda("+inicio+");");
             var parametros = {
-                    "pagina" : inicio
+                    "pagina" : inicio,
+                    "buscar" : ""
             };
             $.ajax({
                     data:  parametros, //datos que se envian a traves de ajax
                     url:   'muestra.php', //archivo que recibe la peticion
                     type:  'post', //método de envio
                     beforeSend: function () {
-                            $("#respuesta").html("Procesando, espere por favor...");
+                            $("#respuesta").html("<div class=\"spinner-border text-primary\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
                     },
                     success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                             $("#respuesta").html(response);
@@ -58,16 +60,18 @@
 
         function cargarBusqueda(inicio) {
             $("#respuesta").empty();
+            $("#enviar").attr("onclick", "cargarBusqueda("+inicio+");");
+
             var parametros = {
                     "pagina" : inicio,
-                    "buscar" : $("#serch").val
+                    "buscar" : $("#serch").val()
             };
             $.ajax({
                     data:  parametros, //datos que se envian a traves de ajax
                     url:   'muestra.php', //archivo que recibe la peticion
                     type:  'post', //método de envio
                     beforeSend: function () {
-                            $("#respuesta").html("Procesando, espere por favor...");
+                            $("#respuesta").html("<div class=\"spinner-border text-primary\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
                     },
                     success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                             $("#respuesta").html(response);
