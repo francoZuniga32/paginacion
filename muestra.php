@@ -6,7 +6,7 @@ if($_POST['buscar'] != ""){
     $buscar = $_POST['buscar'];
     
     $pagina = isset($_POST['pagina']) ? (int)$_POST['pagina']: 1; //la pagina actual si es cualquier cosa es la primera sino la que sigue
-    $registosPorPagina = 18; //cantidad de registros por pagina
+    $registosPorPagina = 20; //cantidad de registros por pagina
     $inicio = ($pagina>0)?(($pagina * $registosPorPagina)- $registosPorPagina): 0;//la pagina inicio para la divicion de del paginador
     
     $sql = "SELECT * FROM materia WHERE LIMIT $inicio, $registosPorPagina";
@@ -60,11 +60,10 @@ if($_POST['buscar'] != ""){
     paginador($total, $registosPorPagina, $pagina, "cargar");
 }
 
+
 function paginador($total, $registosPorPagina, $pagina, $funcion){
     $contador = count($total);
-    echo $contador;
     $paginas = intval($contador/$registosPorPagina);
-    echo "-".$paginas;
 
 
     echo "<nav class=\"Page navigation example d-flex justify-content-center\" >
@@ -85,15 +84,26 @@ function paginador($total, $registosPorPagina, $pagina, $funcion){
             
             //para mostrar el resto de paginas
 
-            if ($pagina < 3) {
-                for($i = 1; $i <= 3; $i++){
-                    if ($i == $pagina) {
-                        echo "<li class=\"page-item active\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.",".$registosPorPagina.")\">".$i."</span></a></li>";
-                    }else{
-                        echo "<li class=\"page-item\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.")\">".$i."</span></a></li>";
+            if ($pagina <= 3) {
+                if ($paginas > 3) {
+                    for($i = 1; $i <= 3; $i++){
+                        if ($i == $pagina) {
+                            echo "<li class=\"page-item active\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.",".$registosPorPagina.")\">".$i."</span></a></li>";
+                        }else{
+                            echo "<li class=\"page-item\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.")\">".$i."</span></a></li>";
+                        }
+                    }
+                    echo "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" role=\"button\">...</a></li>";
+                }else{
+                    for($i = 1; $i <= $paginas; $i++){
+                        if ($i == $pagina) {
+                            echo "<li class=\"page-item active\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.",".$registosPorPagina.")\"><span>".$i."</span></a></li>";
+                        }else{
+                            echo "<li class=\"page-item\" id=\"".$i."\"><a class=\"page-link\" href=\"#\" role=\"button\" onclick=\"".$funcion."(".$i.")\">".$i."</span></a></li>";
+                        }
                     }
                 }
-                echo "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" role=\"button\">...</a></li>";
+                
             }else{
                 if ($pagina > $paginas - 3) {
                     echo "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" role=\"button\">...</a></li>";

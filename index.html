@@ -26,11 +26,30 @@
         </ol>
       </nav>
     <form>
-        <div class="form-group">
-            <div class="col-sm-3">
-                <label for="serch">Busqueda</label>
-                <input type="text" class="form-control" id="serch">
-                <button type="button" class="btn btn-primary" id="enviar">cargar</button>
+        <div class="form-group container">
+            <div class="row">
+                <div class="col-sm-3 ">
+                    <label for="serch">Busqueda</label>
+                    <div class="d-flex justify-content-start">
+                            <input type="text" class="form-control w-50" id="serch">
+                            <button type="button" class="btn btn-primary" id="enviar">
+                                <i class="material-icons h-auto">
+                                    search
+                                </i>
+                            </button>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label for="serch">Carreras</label>
+                    <select id="carrera" onchange="seleccionAño();" class="form-control" >
+                        <option value="-">-</option>
+                        <option value="1">Profesorado de Informatica</option>
+                        <option value="2">Licenciatura en Ciencias de la Computación</option>
+                        <option value="3">Licenciatura en Sistemas de Información</option>
+                        <option value="4">Tecnicatura Universitaria en Desarrollo Web</option>
+                        <option value="5">Tecnicatura Universitaria en Administración de Sistemas y Software Libre</option>
+                    </select>
+                </div>
             </div>
         </div>
       </form>
